@@ -32,11 +32,11 @@ function LoginModal() {
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
+              required
               type="email"
               placeholder={email}
               onChange={(text) => setEmail(text.target.value)}
             />
-            {/* <input value={email} onTextChange={handleInputChange} /> */}
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
             </Form.Text>
@@ -45,6 +45,7 @@ function LoginModal() {
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
+              required
               type="password"
               placeholder="Password"
               onChange={(pass) => setPassword(pass.target.value)}
