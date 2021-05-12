@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import "./Modals.css";
+import { auth } from "../../Firebase";
 
 function SignupModal() {
   const [show, setShow] = useState(true);
@@ -15,11 +16,23 @@ function SignupModal() {
     if (password !== confirmPassword) {
       alert("Passwords do not match!");
     } else {
-      setShow(false);
       console.log(email, password);
-      //signInWithEmailAndPassword
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((cred) => {
+          setShow(false);
+          console.log(cred);
+        })
+        .catch((e) => console.log(e.code));
     }
   };
+
+  // auth.createUserWithEmailAndPassword(email, password).then((cred) => {
+  //   console.log(cred.user);
+  //   // close the signup modal & reset form
+  //   const modal = document.querySelector("#modal-signup");
+  //   setShow(false);
+  // });
 
   return (
     <>

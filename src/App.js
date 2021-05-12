@@ -13,6 +13,8 @@ import {
 } from "react-router-dom";
 import Nav from "./components/Nav/NavMenu";
 import "bootstrap/dist/css/bootstrap.min.css";
+import db from "./Firebase";
+import { auth } from "./Firebase";
 
 function App() {
   return (

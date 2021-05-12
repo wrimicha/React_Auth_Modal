@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import "./Modals.css";
+import { auth } from "../../Firebase";
 
 function LoginModal() {
   const [show, setShow] = useState(true);
@@ -11,9 +12,13 @@ function LoginModal() {
   const handleShow = () => setShow(true);
 
   const signin = () => {
-    setShow(false);
-    console.log(email, password);
-    //signInWithEmailAndPassword
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((cred) => {
+        //console.log(cred);
+        setShow(false);
+      })
+      .catch((e) => console.log(e.code));
   };
 
   return (
@@ -28,7 +33,7 @@ function LoginModal() {
         <Modal.Header>
           <Modal.Title>Sign In</Modal.Title>
         </Modal.Header>
-        <Form className="formMain">
+        <Form id="signup-form" className="formMain">
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
@@ -67,6 +72,7 @@ function LoginModal() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <auth />
     </>
   );
 }
