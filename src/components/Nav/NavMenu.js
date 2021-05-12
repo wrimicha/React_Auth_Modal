@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-//import LoginModal from "../../views/Modals/Login";
+import LoginModal from "../../views/Modals/Login";
 import "./NavMenu.css";
 
 function NavMenu() {
@@ -24,19 +24,19 @@ function NavMenu() {
         </button>
         <div class="menuOptions collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <Link to="/about" class="nav-link">
+            <Link to="/account" class="nav-link">
               <li class="logged-in">Account</li>
             </Link>
-            <Link to="/about" class="nav-link">
+            <Link to="/logout" class="nav-link">
               <li class="logged-in">Logout</li>
             </Link>
-            <Link to="/about" class="nav-link">
+            <Link to="/createguide" class="nav-link">
               <li class="logged-in">Create Guide</li>
             </Link>
-            <Link to="/about" class="nav-link">
+            <Link to="/login" class="nav-link">
               <li class="logged-out">Login</li>
             </Link>
-            <Link to="/about" class="nav-link">
+            <Link to="/signup" class="nav-link">
               <li class="logged-out">Sign up</li>
             </Link>
 

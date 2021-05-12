@@ -1,8 +1,10 @@
 import logo from "./logo.svg";
 import "./App.css";
 //import NavBar from "../components/Navbar";
-import { Home } from "./views/Home";
-import { About } from "./views/About";
+//import { Home } from "./views/Signup";
+//import { About } from "./views/Signin";
+import SignupModal from "./views/Modals/Signup";
+import LoginModal from "./views/Modals/Login";
 import {
   BrowserRouter as Router,
   Route,
@@ -18,11 +20,14 @@ function App() {
       <Router>
         <Nav />
         <Switch>
-          <Route exact path="/home" component={Home} />
+          <Route exact path="/account" component={LoginModal} />
           <Route exact path="/">
-            <Redirect to="/home" />
+            <Redirect to="/account" />
           </Route>
-          <Route exact path="/about" component={About} />
+          <Route exact path="/logout" component={LoginModal} />
+          <Route exact path="/creatguide" component={LoginModal} />
+          <Route exact path="/login" component={LoginModal} />
+          <Route exact path="/signup" component={SignupModal} />
         </Switch>
       </Router>
     </div>

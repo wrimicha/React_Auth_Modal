@@ -1,6 +1,6 @@
 import React from "react";
 import LoginModal from "./Modals/Login";
 
-export const About = () => {
+export const Signin = () => {
   return <LoginModal />;
 };
