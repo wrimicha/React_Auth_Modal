@@ -2,6 +2,20 @@ import Accordion from "../../src/components/Accordion/Accordion";
 import { auth } from "../Firebase";
 import db from "../Firebase";
 import React, { useState } from "react";
+import { setupGuides } from "./ViewFunctions";
+
+// var data = [];
+
+// db.collection("accordion-info")
+//   .get()
+//   .then((snapshot) => {
+//     data = snapshot.docs;
+//     console.log(data);
+//     //setupGuides(snapshot.docs);
+//     //console.log(snapshot.docs);
+//   });
+
+setTimeout(function () {}, 5000);
 
 function App() {
   const [userSignedIn, setUserSignedIn] = useState(false);
