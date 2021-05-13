@@ -8,17 +8,11 @@ import { setupGuides } from "../../views/ViewFunctions";
 
 //var data = [];
 
-const data = [
-  { id: 1, name: "John Doe" },
-  { id: 2, name: "Victor Wayne" },
-  { id: 3, name: "Jane Doe" },
-];
-
 function AccordionComponent() {
   const [accordionInfo, setAccordionInfo] = useState([]);
 
   useEffect(() => {
-    db.collection("accordion-info")
+    db.collection("accordion")
       .get()
       .then((snapshot) => {
         setAccordionInfo(snapshot.docs);
@@ -32,7 +26,7 @@ function AccordionComponent() {
   //snapshot.docs.data().title
 
   return (
-    <Accordion class="accordion" defaultActiveKey="0">
+    <Accordion className="accordion" defaultActiveKey="0">
       {accordionInfo.map((info, i) => (
         <Card>
           <Card.Header>

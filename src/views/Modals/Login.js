@@ -1,25 +1,58 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import { Modal, Button, Form, Alert } from "react-bootstrap";
 import "./Modals.css";
 import { auth } from "../../Firebase";
+import { useAuth } from "../../conexts/AuthContext";
+import { useHistory } from "react-router-dom";
 
 function LoginModal() {
+  // const [email, setEmail] = useState("Enter your email");
+  //const [password, setPassword] = useState();
+
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const { login } = useAuth();
+  const { history } = useHistory();
   const [show, setShow] = useState(true);
-  const [email, setEmail] = useState("Enter your email");
-  const [password, setPassword] = useState();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const signin = () => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((cred) => {
-        //console.log(cred);
-        setShow(false);
-      })
-      .catch((e) => console.log(e.code));
+  const handleSubmit = async (e) => {
+    e.preventDefault(); //not needed unless using the form submit?
+
+    //error validation
+    if (emailRef.current.value.trim() === "") {
+      return setError("Email cannot be blank");
+    }
+    if (passwordRef.current.value.trim() === "") {
+      return setError("Password cannot be blank");
+    }
+
+    try {
+      setError("");
+      setLoading(true);
+      await login(emailRef.current.value, passwordRef.current.value).then(
+        () => setShow(false)
+        // .then(() => history.push("/"))
+      );
+    } catch {
+      setError("Failed to sign in");
+    }
+    setLoading(false);
   };
+
+  // const signin = () => {
+  //   auth
+  //     .signInWithEmailAndPassword(email, password)
+  //     .then((cred) => {
+  //       //console.log(cred);
+  //       setShow(false);
+  //     })
+  //     .catch((e) => console.log(e.code));
+  // };
 
   return (
     <>
@@ -33,14 +66,16 @@ function LoginModal() {
         <Modal.Header>
           <Modal.Title>Sign In</Modal.Title>
         </Modal.Header>
+        {error && <Alert variant="danger">{error}</Alert>}
         <Form id="signup-form" className="formMain">
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               required
               type="email"
-              placeholder={email}
-              onChange={(text) => setEmail(text.target.value)}
+              ref={emailRef}
+              // placeholder={email}
+              // onChange={(text) => setEmail(text.target.value)}
             />
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
@@ -52,8 +87,9 @@ function LoginModal() {
             <Form.Control
               required
               type="password"
-              placeholder="Password"
-              onChange={(pass) => setPassword(pass.target.value)}
+              ref={passwordRef}
+              // placeholder="Password"
+              // onChange={(pass) => setPassword(pass.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="formBasicCheckbox">
@@ -67,7 +103,7 @@ function LoginModal() {
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={signin}>
+          <Button variant="primary" onClick={handleSubmit}>
             Sign In
           </Button>
         </Modal.Footer>

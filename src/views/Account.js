@@ -3,7 +3,7 @@ import { auth } from "../Firebase";
 import db from "../Firebase";
 import React, { useState } from "react";
 import { setupGuides } from "./ViewFunctions";
-
+//import { UserSignedIn } from "../scripts/auth";
 // var data = [];
 
 // db.collection("accordion-info")
@@ -15,9 +15,9 @@ import { setupGuides } from "./ViewFunctions";
 //     //console.log(snapshot.docs);
 //   });
 
-setTimeout(function () {}, 5000);
+//setTimeout(function () {}, 5000);
 
-function App() {
+function Account() {
   const [userSignedIn, setUserSignedIn] = useState(false);
 
   auth.onAuthStateChanged((user) => {
@@ -31,6 +31,9 @@ function App() {
   } else {
     return <text> Please sign in </text>;
   }
+
+  //return <text> Please sign in </text>;
+
   // auth.onAuthStateChanged((user) => {
   //   if (user) {
   //     return <Accordion />;
@@ -40,4 +43,4 @@ function App() {
   // });
 }
 
-export default App;
+export default Account;

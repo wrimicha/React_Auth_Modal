@@ -4,26 +4,22 @@ import Button from "react-bootstrap/Button";
 import LoginModal from "../../views/Modals/Login";
 import "./NavMenu.css";
 import { auth } from "../../Firebase";
+import { useAuth } from "../../conexts/AuthContext";
 
 function NavMenu() {
-  const [userName, setUserName] = useState("");
+  //const [userName, setUserName] = useState("");
+  const { currentUser, logout } = useAuth();
 
-  const changeUserName = (user) => {
-    if (user) {
-      setUserName(user.email);
-    }
-  };
+  // const changeUserName = (user) => {
+  //   if (user) {
+  //     setUserName(user.email);
+  //   }
+  // };
 
-  auth.onAuthStateChanged((user) => {
-    changeUserName(user);
-  });
-
-  const signOut = () => {
-    auth.signOut().then(() => {
-      console.log("signed out");
-      setUserName("");
-    });
-  };
+  // auth.onAuthStateChanged((user) => {
+  //   changeUserName(user);
+  //   console.log(user);
+  // });
 
   return (
     <nav class="menuBar navbar navbar-expand-lg navbar-light bg-light">
@@ -48,7 +44,7 @@ function NavMenu() {
               <li class="logged-in">Account</li>
             </Link>
             <Link to="/logout" class="nav-link">
-              <li class="logged-in" onClick={() => signOut()}>
+              <li class="logged-in" onClick={() => logout()}>
                 Logout
               </li>
             </Link>
@@ -69,7 +65,9 @@ function NavMenu() {
               <li className="nav-item">Home</li>
             </Link> */}
           </ul>
-          <text style={{ maxWidth: 250 }}>{userName}</text>
+          <text style={{ maxWidth: 250 }}>
+            {currentUser && currentUser.email}
+          </text>
         </div>
       </div>
     </nav>
