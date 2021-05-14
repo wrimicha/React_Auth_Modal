@@ -2,6 +2,7 @@ import "./App.css";
 //import NavBar from "../components/Navbar";
 //import { Home } from "./views/Signup";
 //import { About } from "./views/Signin";
+import CreateGuide from "./views/Modals/CreateGuide";
 import SignupModal from "./views/Modals/Signup";
 import LoginModal from "./views/Modals/Login";
 import Account from "./views/Account";
@@ -39,7 +40,7 @@ function App() {
               <Redirect to="/account" />
             </Route>
             <Route exact path="/logout" />
-            <Route exact path="/createguide" component={LoginModal} />
+            <Route exact path="/createguide" component={CreateGuide} />
             <Route exact path="/login" component={LoginModal} />
             <Route exact path="/signup" component={SignupModal} />
           </Switch>
