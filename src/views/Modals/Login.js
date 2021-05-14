@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useImperativeHandle } from "react";
 import { Modal, Button, Form, Alert } from "react-bootstrap";
 import "./Modals.css";
 import { auth } from "../../Firebase";
 import { useAuth } from "../../conexts/AuthContext";
 import { useHistory } from "react-router-dom";
 
-function LoginModal() {
-  // const [email, setEmail] = useState("Enter your email");
-  //const [password, setPassword] = useState();
-
+const LoginModal = (props, ref) => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { login } = useAuth();
@@ -43,16 +40,6 @@ function LoginModal() {
     }
     setLoading(false);
   };
-
-  // const signin = () => {
-  //   auth
-  //     .signInWithEmailAndPassword(email, password)
-  //     .then((cred) => {
-  //       //console.log(cred);
-  //       setShow(false);
-  //     })
-  //     .catch((e) => console.log(e.code));
-  // };
 
   return (
     <>
@@ -111,6 +98,6 @@ function LoginModal() {
       <auth />
     </>
   );
-}
+};
 
 export default LoginModal;
