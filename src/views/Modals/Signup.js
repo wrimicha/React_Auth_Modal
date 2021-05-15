@@ -4,11 +4,11 @@ import "./Modals.css";
 import { auth } from "../../Firebase";
 import { useAuth } from "../../conexts/AuthContext";
 
-function SignupModal() {
+function SignupModal({ modalShow, setShow }) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  const [show, setShow] = useState(true);
+  //const [show, setShow] = useState(true);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
@@ -17,8 +17,8 @@ function SignupModal() {
   // const [password, setPassword] = useState();
   // const [confirmPassword, setConfirmPassword] = useState();
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  //const handleClose = () => setShow(false);
+  //const handleShow = () => setShow(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //not needed unless using the form submit?
@@ -39,9 +39,10 @@ function SignupModal() {
     try {
       setError("");
       setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value).then(() =>
-        setShow(false)
-      );
+      await signup(
+        emailRef.current.value,
+        passwordRef.current.value
+      ).then(() => () => setShow(false));
     } catch {
       setError("Failed to create an account");
     }
@@ -79,8 +80,8 @@ function SignupModal() {
         centered
         size="xl"
         dialogClassName="mainModal"
-        show={show}
-        onHide={handleClose}
+        show={modalShow}
+        onHide={() => setShow(false)}
       >
         <Modal.Header>
           <Modal.Title>Get Started</Modal.Title>
@@ -123,7 +124,7 @@ function SignupModal() {
           </Form.Group>
         </Form>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={() => setShow(false)}>
             Cancel
           </Button>
           <Button disabled={loading} variant="primary" onClick={handleSubmit}>

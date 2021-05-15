@@ -12,12 +12,10 @@ function AccordionComponent() {
   const [accordionInfo, setAccordionInfo] = useState([]);
 
   useEffect(() => {
-    db.collection("accordion")
-      .get()
-      .then((snapshot) => {
-        setAccordionInfo(snapshot.docs);
-      });
-  }, [accordionInfo]);
+    db.collection("accordion").onSnapshot((snapshot) => {
+      setAccordionInfo(snapshot.docs);
+    });
+  }, []);
 
   // setTimeout(() => {
   //   console.log(accordionInfo);

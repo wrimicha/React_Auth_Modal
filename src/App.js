@@ -19,9 +19,11 @@ import { auth } from "./Firebase";
 import React, { useState } from "react";
 import { AuthProvider } from "./conexts/AuthContext";
 import PrivateRoute from "./components/Nav/PrivateRoute";
+import NavMenu from "./components/Nav/NavMenu";
 
 function App() {
   const [userSignedIn, setUserSignedIn] = useState(false);
+  const [createModalShow, setCreateModalShow] = useState(false);
 
   auth.onAuthStateChanged((user) => {
     if (user) {
@@ -40,9 +42,9 @@ function App() {
               <Redirect to="/account" />
             </Route>
             <Route exact path="/logout" />
-            <Route exact path="/createguide" component={CreateGuide} />
-            <Route exact path="/login" component={LoginModal} />
-            <Route exact path="/signup" component={SignupModal} />
+            {/* <Route exact path="/createguide" component={CreateGuide} />
+            <Route exact path="/login" />
+            <Route exact path="/signup" component={SignupModal} /> */}
           </Switch>
         </AuthProvider>
       </Router>

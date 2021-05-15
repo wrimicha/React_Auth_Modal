@@ -5,17 +5,17 @@ import { auth } from "../../Firebase";
 import { useAuth } from "../../conexts/AuthContext";
 import { useHistory } from "react-router-dom";
 
-const LoginModal = (props, ref) => {
+const LoginModal = ({ modalShow, setShow }) => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { login } = useAuth();
   const { history } = useHistory();
-  const [show, setShow] = useState(true);
+  //const [show, setShow] = useState(true);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //not needed unless using the form submit?
@@ -47,8 +47,8 @@ const LoginModal = (props, ref) => {
         centered
         size="xl"
         dialogClassName="mainModal"
-        show={show}
-        onHide={handleClose}
+        show={modalShow}
+        onHide={() => setShow(false)}
       >
         <Modal.Header>
           <Modal.Title>Sign In</Modal.Title>
@@ -87,7 +87,7 @@ const LoginModal = (props, ref) => {
           </Button> */}
         </Form>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={() => setShow(false)}>
             Cancel
           </Button>
           <Button variant="primary" onClick={handleSubmit}>

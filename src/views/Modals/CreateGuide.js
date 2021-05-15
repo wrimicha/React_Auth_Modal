@@ -3,15 +3,15 @@ import "./Modals.css";
 import { Modal, Button, Form, Alert } from "react-bootstrap";
 import db from "../../Firebase";
 
-const CreateGuide = () => {
+const CreateGuide = ({ modalShow, setShow }) => {
   const titleRef = useRef();
   const bodyRef = useRef();
   const [error, setError] = useState("");
-  const [show, setShow] = useState(true);
+  //const [show, setShow] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  //const handleClose = () => setShow(false);
+  //const handleShow = () => setShow(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //not needed unless using the form submit?
@@ -43,8 +43,8 @@ const CreateGuide = () => {
         centered
         size="xl"
         dialogClassName="mainModal"
-        show={show}
-        onHide={handleClose}
+        show={modalShow}
+        onHide={() => setShow(false)}
       >
         <Modal.Header>
           <Modal.Title>Create Post</Modal.Title>
@@ -68,7 +68,7 @@ const CreateGuide = () => {
           </Button> */}
         </Form>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={() => setShow(false)}>
             Cancel
           </Button>
           <Button variant="primary" onClick={handleSubmit}>
