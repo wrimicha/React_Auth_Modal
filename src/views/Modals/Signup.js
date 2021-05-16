@@ -8,19 +8,18 @@ function SignupModal({ modalShow, setShow }) {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
+  const bio = useRef();
+
   //const [show, setShow] = useState(true);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
   const { currentUser } = useAuth();
-  // const [email, setEmail] = useState("Enter your email");
-  // const [password, setPassword] = useState();
-  // const [confirmPassword, setConfirmPassword] = useState();
 
   //const handleClose = () => setShow(false);
   //const handleShow = () => setShow(true);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault(); //not needed unless using the form submit?
 
     if (emailRef.current.value === "") {
@@ -39,40 +38,16 @@ function SignupModal({ modalShow, setShow }) {
     try {
       setError("");
       setLoading(true);
-      await signup(
+      signup(
         emailRef.current.value,
-        passwordRef.current.value
-      ).then(() => () => setShow(false));
+        passwordRef.current.value,
+        bio.current.value
+      ).then(() => setShow(false));
     } catch {
       setError("Failed to create an account");
     }
     setLoading(false);
   };
-
-  // const signup = () => {
-  //   if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-  //     alert("Passwords do not match!");
-  //   } else {
-  //     //console.log(email, password);
-  //     auth
-  //       .createUserWithEmailAndPassword(
-  //         emailRef.current.value,
-  //         passwordRef.current.value
-  //       )
-  //       .then((cred) => {
-  //         setShow(false);
-  //         console.log(cred);
-  //       })
-  //       .catch((e) => console.log(e.code));
-  //   }
-  // };
-
-  // auth.createUserWithEmailAndPassword(email, password).then((cred) => {
-  //   console.log(cred.user);
-  //   // close the signup modal & reset form
-  //   const modal = document.querySelector("#modal-signup");
-  //   setShow(false);
-  // });
 
   return (
     <>
@@ -121,6 +96,10 @@ function SignupModal({ modalShow, setShow }) {
               // placeholder="Password"
               // onChange={(pass) => setConfirmPassword(pass.target.value)}
             />
+          </Form.Group>
+          <Form.Group controlId="bio">
+            <Form.Label>Enter one line bio</Form.Label>
+            <Form.Control required type="text" ref={bio} />
           </Form.Group>
         </Form>
         <Modal.Footer>

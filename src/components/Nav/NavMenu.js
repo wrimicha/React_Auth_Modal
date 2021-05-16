@@ -8,12 +8,14 @@ import ConditionalNav from "./NavFunctions";
 import CreateGuideModal from "../../views/Modals/CreateGuide";
 import LoginModal from "../../views/Modals/Login";
 import SignupModal from "../../views/Modals/Signup";
+import UserInfo from "../../views/Modals/UserInfo";
 
 function NavMenu() {
   const { currentUser, logout } = useAuth();
   const [loginModalShow, setLoginModalShow] = useState(false);
   const [signupModalShow, setSignupModalShow] = useState(false);
   const [createModalShow, setCreateModalShow] = useState(false);
+  const [userInfoShow, setUserInfoShow] = useState(false);
 
   auth.onAuthStateChanged(() => ConditionalNav(currentUser));
 
@@ -30,6 +32,10 @@ function NavMenu() {
       <SignupModal
         modalShow={signupModalShow} //createModalShow
         setShow={setSignupModalShow}
+      />
+      <UserInfo
+        modalShow={userInfoShow} //createModalShow
+        setShow={setUserInfoShow}
       />
 
       <nav class="menuBar navbar navbar-expand-lg navbar-light bg-light">
@@ -97,7 +103,10 @@ function NavMenu() {
                 </li>
               </Link>
             </ul>
-            <text style={{ maxWidth: 250 }}>
+            <text
+              onClick={() => setUserInfoShow(true)}
+              style={{ maxWidth: 250 }}
+            >
               {currentUser && currentUser.email}
             </text>
           </div>
